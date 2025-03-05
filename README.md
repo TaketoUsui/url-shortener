@@ -9,7 +9,7 @@
 > https://example.example/text=%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%81%AEURL%E3%81%A7%E3%81%99
 
 ### 短縮したURLの例
-> https:://ex.example/A8g7Qn
+> https://ex.example/A8g7Qn
 
 ※なお、この短縮機能は、このサービスが発行した短いURLへのHTTPリクエストを受けて、元のURLへリダイレクトすることによって実現します。
 
