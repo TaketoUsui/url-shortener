@@ -6,7 +6,7 @@
 具体的には、以下のように長いURLを短縮することができます。
 
 ### 元のURLの例
-> https://example.example/text=%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%81%AEURL%E3%81%A7%E3%81%99
+> https://example.example/?text=%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%81%AEURL%E3%81%A7%E3%81%99
 
 ### 短縮したURLの例
 > https://ex.example/A8g7Qn
