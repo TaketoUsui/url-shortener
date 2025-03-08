@@ -19,16 +19,30 @@
                 <h1 class="mb-1 font-medium">URL短縮ツール　たんちゃん</h1>
                 <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">「たんちゃん」は、ブラウザ上で、長いURLを簡単に短縮できるツールです。</p>
 
-                <form class="mt-6 mb-2" action="{{ route('create-url') }}" method="POST">
+                <form id="url-shortener" class="mt-6 mb-2" action="{{ route('create-url') }}" method="POST">
                     @csrf
                     <div>
                         <label for="long-url" class="mb-3">短縮したいURLを入力してください</label><br>
-                        <input type="text" id="long-url" name="long-url" placeholder="https://example.com/" class="mb-2 bg-neutral-50 border border-neutral-300 text-neutral-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full p-2.5 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500">
+                        @error('long-url')
+                            <input type="text" value="{{ old('long-url') }}" id="long-url" name="long-url" placeholder="https://example.com/" class="mb-0 bg-neutral-50 border text-neutral-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full p-2.5 dark:bg-neutral-700 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500 form-control border-red-500">
+                            <div class="mb-2 text-red-300">「{{ old('long-url') }}」は正しいURLではありません</div>
+                        @else
+                            <input type="text" id="long-url" name="long-url" placeholder="https://example.com/" class="mb-2 bg-neutral-50 border text-neutral-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full p-2.5 dark:bg-neutral-700 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500 form-control border-neutral-300 dark:border-neutral-600">
+                        @enderror
                     </div>
-                    <button type="submit" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">作成</button>
+                    <button onclick="shorten()" type="button" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">作成</button>
                 </form>
             </div>
         </main>
     </div>
+    <script>
+        let shorten = function(){
+            let long = $('#long-url');
+            if(!long.val().match(/https?:\/\//) && long.val().match(/.+\..+/)){
+                long.val('https://' + long.val());
+            }
+            $('#url-shortener').submit();
+        }
+    </script>
 </body>
 </html>
