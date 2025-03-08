@@ -11,7 +11,7 @@ class ShortenController extends Controller
 {
     public function create(Request $request){
         $request->validate([
-            'long-url' => 'required',
+            'long-url' => 'required|active_url',
         ]);
         $longUrl = $request->input('long-url');
 
