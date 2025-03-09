@@ -26,15 +26,25 @@
                     </div>
                     <div class="mb-6">
                         <h2 class="mb-2">短縮後のURL</h2>
-                        <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
+                        <p class="text-[#706f6c] dark:text-[#A1A09A]">
                             {{ $shortUrl }}
-                            <button type="button" onclick="copyText(`{{ $shortUrl }}`)" class="ml-4 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-tight">
-                                <span id="copy" class="pl-2 pr-2">Copy</span>
-                                <span id="copied" hidden>Copied!</span>
+                            <button type="button" onclick="copyText(`{{ $shortUrl }}`)" class="ml-2 inline-block text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 items-center justify-center bg-white border-neutral-200 border h-8 rounded-sm text-sm p-2 leading-tight">
+                                <span id="copy">
+                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                        <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                                    </svg>
+{{--                                    <span class="px-2">Copy</span>--}}
+                                </span>
+                                <span id="copied" hidden>
+                                    <svg class="w-3.5 h-3.5 text-blue-700 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                                    </svg>
+{{--                                    <span>Copied!</span>--}}
+                                </span>
                             </button>
                         </p>
                     </div>
-                    <button type="button" onclick="location.href='{{ route('index') }}'" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">他のURLを短縮する</button>
+                    <button type="button" onclick="location.href='{{ route('index') }}'" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-3 py-1 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">他のURLを短縮する</button>
                 </div>
             </div>
         </main>
