@@ -4,16 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\UrlMap;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use function React\Promise\all;
 
 class ShortenController extends Controller
 {
     public function create(Request $request){
-        $request->validate([
-            'long-url' => 'required|active_url',
+        $data = $request->all();
+
+        if(isset($data['long-url'])){
+            $data['long-url'] = preg_replace('/\/$/', '', $data['long-url']);
+            if(!preg_match('/^https?:\/\//', $data['long-url'])){
+                $data['long-url'] = 'https://' . $data['long-url'];
+            }
+        }
+        $validator = Validator::make($data, [
+            'long-url' => 'required|url',
         ]);
-        $longUrl = $request->input('long-url');
+        $validator->validate();
+
+        $longUrl = $data['long-url'];
 
         $urlMap = UrlMap::where('long_url', $longUrl)->first();
         if($urlMap){

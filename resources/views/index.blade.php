@@ -30,19 +30,10 @@
                             <input type="text" id="long-url" name="long-url" placeholder="https://example.com/" class="mb-2 bg-neutral-50 border text-neutral-900 text-sm rounded-lg focus:ring-neutral-500 focus:border-neutral-500 block w-full p-2.5 dark:bg-neutral-700 dark:placeholder-neutral-400 dark:text-white dark:focus:ring-neutral-500 dark:focus:border-neutral-500 form-control border-neutral-300 dark:border-neutral-600">
                         @enderror
                     </div>
-                    <button onclick="shorten()" type="button" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">作成</button>
+                    <button type="submit" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">作成</button>
                 </form>
             </div>
         </main>
     </div>
-    <script>
-        let shorten = function(){
-            let long = $('#long-url');
-            if(!long.val().match(/https?:\/\//) && long.val().match(/.+\..+/)){
-                long.val('https://' + long.val());
-            }
-            $('#url-shortener').submit();
-        }
-    </script>
 </body>
 </html>
