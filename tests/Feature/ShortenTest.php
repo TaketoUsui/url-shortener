@@ -29,6 +29,15 @@ class ShortenTest extends TestCase
         $this->assertDatabaseHas('url_map', ['long_url' => $url]);
     }
 
+    public function test_very_long_url_can_be_shortend(): void
+    {
+        $url = file_get_contents(__DIR__ . '/const/veryLongUrl.txt');
+        $url = preg_replace('/[\s\t\n　]/', '', $url);
+        $response = $this->post('/create-url', ['long-url' =>$url]);
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('url_map', ['long_url' => $url]);
+    }
+
     public function test_url_validation_works(): void
     {
         $url = 'h//wrong_url';
