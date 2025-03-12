@@ -21,7 +21,7 @@ class ShortenController extends Controller
             }
         }
         $validator = Validator::make($data, [
-            'long-url' => 'required|url',
+            'long-url' => 'required|url|max:20000',
         ]);
         $validator->validate();
 
