@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\UrlMap;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use function React\Promise\all;
 
@@ -29,23 +31,50 @@ class ShortenController extends Controller
 
         $urlMap = UrlMap::where('long_url', $longUrl)->first();
         if($urlMap){
-            $shortUrl = route('index') . '/' . $urlMap->short_url;
+            $shortUrl = $urlMap->short_url;
             $longUrl = $urlMap->long_url;
         }else{
-            do{
+            while(true){
                 $shortUrl = Str::random(6);
-            }while(UrlMap::where('long_url', $longUrl)->exists());
-
-            $urlMap = new UrlMap();
-            $urlMap->fill(['long_url' => $longUrl, 'short_url' => $shortUrl]);
-            $urlMap->save();
-
-            $shortUrl = route('index') . '/' . $shortUrl;
+                if(UrlMap::where('short_url', $shortUrl)->exists()){
+                    continue;
+                }else{
+                    try{
+                        $urlMap = new UrlMap();
+                        $urlMap->fill(['long_url' => $longUrl, 'short_url' => $shortUrl]);
+                        $urlMap->save();
+                    }catch(\Exception $e){
+                        continue;
+                    }
+                    break;
+                }
+            }
+            $qr_image = QrCode::format('png')
+                ->size(200)
+                ->generate(route('redirect', $shortUrl));
+            $qr_location = 'img/qr-code/img-' . $shortUrl . '.png';
+            Storage::disk('local')->put($qr_location, $qr_image);
         }
+
+        return redirect(route('show', $shortUrl));
+    }
+
+    public function show(Request $request, $shortUrl_id){
+        $urlMap = UrlMap::where('short_url', $shortUrl_id)->first();
+        $longUrl = $urlMap->long_url;
+
+        $shortUrl = route('index') . '/' . $shortUrl_id;
         if(55 < strlen($longUrl)){
             $longUrl = substr($longUrl, 0, 50) . ' ...(略)';
         }
-        return view('shortened-url')->with(compact('shortUrl', 'longUrl'));
+
+        return view('shortened-url')->with(compact('shortUrl', 'longUrl', 'shortUrl_id'));
+    }
+
+    public function getQRCode(Request $request, $shortUrl){
+        $pathToFile = storage_path('app/private/img/qr-code/img-' . $shortUrl . '.png');
+        $name = 'shortURL_' . $shortUrl . '.png';
+        return response()->download($pathToFile, $name, []);
     }
 
     public function redirect(String $shortUrl){

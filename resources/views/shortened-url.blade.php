@@ -42,6 +42,22 @@
 {{--                                    <span>Copied!</span>--}}
                                 </span>
                             </button>
+                            <button onclick="location.href='{{ route('getQRCode', $shortUrl_id) }}'" class="ml-1 inline-block text-neutral-900 dark:text-neutral-400 hover:bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-600 dark:hover:bg-neutral-700 items-center justify-center bg-white border-neutral-200 border h-8 rounded-sm text-sm p-2 leading-tight">
+                                <span id="download">
+                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                      <path d="M2 2h2v2H2z"/>
+                                      <path d="M6 0v6H0V0zM5 1H1v4h4zM4 12H2v2h2z"/>
+                                      <path d="M6 10v6H0v-6zm-5 1v4h4v-4zm11-9h2v2h-2z"/>
+                                      <path d="M10 0v6h6V0zm5 1v4h-4V1zM8 1V0h1v2H8v2H7V1zm0 5V4h1v2zM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8zm0 0v1H2V8H1v1H0V7h3v1zm10 1h-1V7h1zm-1 0h-1v2h2v-1h-1zm-4 0h2v1h-1v1h-1zm2 3v-1h-1v1h-1v1H9v1h3v-2zm0 0h3v1h-2v1h-1zm-4-1v1h1v-2H7v1z"/>
+                                      <path d="M7 12h1v3h4v1H7zm9 2v2h-3v-1h2v-1z"/>
+                                    </svg>
+                                </span>
+                                <span id="downloaded" hidden>
+                                    <svg class="w-3.5 h-3.5 text-blue-700 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                                    </svg>
+                                </span>
+                            </button>
                         </p>
                     </div>
                     <button type="button" onclick="location.href='{{ route('index') }}'" class="mb-2 inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-3 py-1 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">他のURLを短縮する</button>
